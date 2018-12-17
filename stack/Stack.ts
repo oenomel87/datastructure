@@ -12,12 +12,18 @@ export default class Stack<T> {
     }
 
     peek(): T {
+        if(this.size === 0) {
+            throw Error('Stack is undefined');
+        }
         return this.storage[this.size - 1];
     }
 
     pop(): T {
+        if(this.size === 0) {
+            throw Error('Stack is undefined');
+        }
         const item = this.storage[this.size - 1];
-        delete this.storage[this.size - 1];
+        this.storage.splice(this.size - 1, 1);
         this.size--;
         return item;
     }
