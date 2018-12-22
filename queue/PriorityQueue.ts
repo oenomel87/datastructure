@@ -4,7 +4,7 @@ interface IPriorityQueue<T> {
 }
 
 export default class PriorityQueue<T> {
-    queue: Array<IPriorityQueue<T>> = []
+    private queue: Array<IPriorityQueue<T>> = []
 
     dequeue(): T {
         if(this.queue.length > 0) {
