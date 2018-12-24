@@ -1,4 +1,4 @@
- export default class Node<T> {
+export default class Node<T> {
     leftNode!: Node<T>;
     rightNode!: Node<T>;
 
