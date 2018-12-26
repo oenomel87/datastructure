@@ -11,8 +11,9 @@ export default class Map<S, T> {
     }
 
     public put(key: S, value: T): void {
-        if(this.has(key)) {
-            this.find(key)!.value = value;
+        let entry = this.find(key);
+        if(entry !== null) {
+            entry.value = value;
         } else {
             this.storage.push({
                 key: key,
