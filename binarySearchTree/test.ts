@@ -1,6 +1,7 @@
 import BST from './BinarySearchTree';
 
-const bst = new BST<Number>(10);
+const bst = new BST<Number>();
+bst.insert(10);
 bst.insert(5);
 bst.insert(20);
 bst.insert(3);

@@ -1,17 +1,17 @@
-import Node from'./Node';
+interface Node<T> {
+    leftNode: Node<T> | null;
+    rightNode: Node<T> | null;
+    value: T;
+}
 
 export default class BinarySearchTree<T> {
-    rootNode: Node<T>;
+    private rootNode: Node<T> | null = null;
 
-    constructor(value: T) {
-        this.rootNode = new Node<T>(value);
-    }
-
-    find(value: T): boolean {
+    public find(value: T): boolean {
         return this.findNode(this.rootNode, value) ? true : false;
     }
 
-    private findNode(node: Node<T>, value: T): Node<T> | never {
+    private findNode(node: Node<T> | null, value: T): Node<T> | never {
         if(!node) {
             throw new Error(`Cannot find ${value}`);
         } else if(node.value === value) {
@@ -22,30 +22,38 @@ export default class BinarySearchTree<T> {
         return this.findNode(node.leftNode, value);
     }
 
-    findMin(): T {
+    public findMin(): T {
         let node = this.rootNode;
-        while(typeof node.leftNode !== 'undefined') {
+        if(node === null) {
+            throw new Error('Tree is empty');
+        }
+        while(node.leftNode !== null) {
             node = node.leftNode;
         }
-        return node!.value;
+        return node.value;
     }
 
-    findMax(): T {
+    public findMax(): T {
         let node = this.rootNode;
-        while(node.rightNode !== undefined) {
+        if(node === null) {
+            throw new Error('Tree is empty');
+        }
+        while(node.rightNode !== null) {
             node = node.rightNode;
         }
-        return node!.value;
+        return node.value;
     }
 
-    insert(value: T): void {
-        this.insertNode(this.rootNode, value);
+    public insert(value: T): void {
+        if(this.rootNode === null) {
+            this.rootNode = { value, leftNode: null, rightNode: null };
+        } else {
+            this.insertNode(this.rootNode, value);
+        }
     }
 
     private insertNode(node: Node<T>, value: T): void {
-        if(!this.rootNode) {
-            node = new Node<T>(value);
-        } else if(value <= node.value) {
+        if(value <= node.value) {
             this.insertToLeftNode(node, value);
         } else {
             this.insertToRightNode(node, value);
@@ -53,16 +61,16 @@ export default class BinarySearchTree<T> {
     }
 
     private insertToLeftNode(node: Node<T>, value: T): void {
-        if(node.leftNode === undefined) {
-            node.leftNode = new Node<T>(value);
+        if(node.leftNode === null) {
+            node.leftNode = { value, leftNode: null, rightNode: null };
         } else {
             this.insertNode(node.leftNode, value);
         }
     }
 
     private insertToRightNode(node: Node<T>, value: T): void {
-        if(node.rightNode === undefined) {
-            node.rightNode = new Node<T>(value);
+        if(node.rightNode === null) {
+            node.rightNode = { value, leftNode: null, rightNode: null };
         } else {
             this.insertNode(node.rightNode, value);
         }
