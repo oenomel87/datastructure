@@ -18,3 +18,6 @@ bst.insert(30);
 
 console.log(bst.findMin());
 console.log(bst.findMax());
+
+bst.remove(1);
+console.log(bst.findMin());
